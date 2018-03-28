@@ -17,3 +17,7 @@ requests = []
                  bill: 100, status: rand(1...3), user_id: 1)
 end
 Request.import! requests
+
+Diploma.create certification:"abc", user_id: 1
+
+Conversation.create newbie_id: 1, expert_id: 2, request_id: 1, rate_float: 100
