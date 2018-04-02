@@ -7,6 +7,7 @@ class MessagesController < ApplicationController
 
   def create
     message = current_user.messages.build messages_params
+    @conversation = Conversation.current_conversation(current_user.id)[0]
     if message.conversation.newbie? message.user_id
       notify_to = message.conversation.expert.id
     else
@@ -14,9 +15,7 @@ class MessagesController < ApplicationController
     end
     if message.save
       ActionCable.server.broadcast "conversation_channel",
-                                   content: message.content,
-                                   created_at: message.created_at,
-                                   username: message.user.name,
+                                   message: render_message(message, @conversation),
                                    notify_to: notify_to
     else
       render :index
@@ -30,5 +29,9 @@ class MessagesController < ApplicationController
 
   def messages_params
     params.require(:message).permit :content, :conversation_id
+  end
+
+  def render_message message, conversation
+    render_to_string partial: "messages/message", locals: {message: message, conversation: conversation}
   end
 end
