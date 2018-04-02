@@ -1,0 +1,34 @@
+<div class="job-list" id="<%= request.id %>">
+  <div class="thumb">
+    <a href="job-details.html"><img src="" alt=""></a>
+  </div>
+  <div class="job-list-content">
+    <h4>
+      <a href="<%= request_path(request.id) %>"><%= request.header %></a>
+      <span class="<%= request.status %>"><%= request.status %></span>
+    </h4>
+    <p><%= request.content %></p>
+    <div class="job-tag request">
+      <div class="pull-left">
+        <div class="meta-tag">
+          <span><i class="ti-brush"></i><%= request.topic %></span>
+          <span><i class="ti-time"></i><%= request.bill %> $</span>
+        </div>
+      </div>
+      <div class="pull-right">
+        <div class="icon">
+        </div>
+        <a href="<%= request_path(request.id) %>" class="btn btn-common btn-rm">
+          <%= t "views.requests.index.more_detail" %>
+        </a>
+        <% if user_signed_in? && request.is_user?(current_user.id) %>
+          <span id="delete-request">
+            <%= link_to request, method: :delete, data: {confirm: t("views.requests.show.confirm")}, remote: true do %>
+              <i class="fa fa-times" aria-hidden="true"></i>
+            <% end %>
+          </span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

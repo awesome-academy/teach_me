@@ -1,0 +1,14 @@
+<div class="addform">
+  <%= form_for(@diploma, remote: true)  do |f| %>
+    <div class="field">
+      <%= f.label :certification, t("views.diplomas.modal_form.title") %><br>
+      <%= f.text_area :certification %>
+    </div>
+    <span class="picture">
+      <%= f.label :demonstrate, t("views.diplomas.modal_form.image") %>
+      <%= f.file_field :demonstrate %>
+    </span></br>
+    <%= f.button t("views.diplomas.modal_form.add"), class: "btn btn-primary" %>
+  <% end %>
+</div>
+<%= javascript_include_tag "validate_diploma" %>
