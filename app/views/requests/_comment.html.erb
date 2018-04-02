@@ -3,7 +3,8 @@
     <div class= "row">
       <div class="col-md-4 user-review">
         <div class = "bold">
-          <h4><%= (comment.user.name) %></h4>
+        <img src ="https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png" height="40" width="40">&nbsp;
+          <strong><%= (comment.user.name) %></strong>
         </div>
         <% if comment.created_at && comment.updated_at %>
           <i><%= I18n.localize comment.created_at, format: :date_month_year_concise%>&nbsp</i>
