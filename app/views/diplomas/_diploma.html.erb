@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row col-md-6 col-md-offset-2 custyle">
+    <table class="table table-striped custab">
+      <thead>
+        <tr>
+          <th><%= t "views.users.show.certification" %></th>
+          <th><%= t "views.users.show.status" %></th>
+          <th class="text-center"></th>
+        </tr>
+      </thead>
+      <% diplomas.each do |diploma| %>
+        <tr class="diploma-<%= diploma.id %>">
+          <td>
+            <%=diploma.certification%>
+          </td>
+          <td>
+            <%=diploma.verify%>
+          </td>
+          <% if user_signed_in? %>
+            <% if current_user == diploma.user || current_user.admin? %>
+              <td class="delete_diploma" onclick="delete_diploma(this)" id="<%= diploma.id %>"><i class="fa fa-times" aria-hidden="true"></i>
+            <% end %>
+          <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

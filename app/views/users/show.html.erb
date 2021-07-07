@@ -1,0 +1,107 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4><%= t "views.users.show.head" %></h4>
+  </div>
+  <div class="panel-body">
+    <div class="box box-info">
+      <div class="box-body">
+        <div class="col-sm-6">
+          <div align="center"> <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-circle img-responsive">
+            <input id="profile-image-upload" class="hidden" type="file">
+            <div style="color:#999;">
+              <%= t "views.users.show.click" %>
+            </div>
+          </div>
+          <br>
+        </div>
+        <div class="col-sm-6">
+          <h4><%= @user.name %></h4></span>
+        </div>
+        <div class="clearfix"></div>
+        <hr>
+        <div class="col-sm-5 col-xs-6 tital ">
+          <%= t "views.users.show.email" %>:</div>
+        <div class="col-sm-7">
+          <%= @user.email %>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+        <div class="col-sm-5 col-xs-6 tital ">
+          <%= t "views.users.show.sex" %>:</div>
+        <div class="col-sm-7">
+          <%= @user.sex %>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+        <div class="col-sm-5 col-xs-6 tital ">
+          <%= t "views.users.show.address" %>:</div>
+        <div class="col-sm-7">
+          <%= @user.address %>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+        <div class="col-sm-5 col-xs-6 tital ">
+          <%= t "views.users.show.description" %>:</div>
+        <div class="col-sm-7">
+          <%= @user.description %>
+        </div>
+        <br>
+        <% if user_signed_in? %>
+          <% if current_user == @user %>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
+              <%= t "views.users.show.add_diploma" %>
+            </button>
+          <%end%>
+        <%end%>
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+              <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><%= t "views.users.show.diploma" %></h4>
+              </div>
+              <div class="modal-body">
+                <%= render "diplomas/modal_form" %>
+              </div>
+              <div class=" list-add">
+                <p>
+                  <%= t "views.users.show.list-add" %>
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                  <%= t "views.users.show.close" %>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <ol class="diplomas">
+    <h3><%= t "views.users.show.diploma" %> (<%= @diplomas_approved.count %>)</h3>
+    <div class="list-diploma">
+      <% if @user.diplomas.any? %>
+        <% if current_user == @user %>
+        <div class="list-pending">
+          <p> <%= t "views.users.show.pending" %></p>
+          <%= render partial: "diplomas/diploma", locals:{diplomas: @diplomas_pending} %>
+        </div>
+        <div class="list-approved">
+          <p> <%= t "views.users.show.approved" %></p>
+          <%= render partial: "diplomas/diploma", locals:{diplomas: @diplomas_approved} %>
+        </div>
+        <% else %>
+          <div class="list-approved">
+            <%= render partial: "diplomas/diploma", locals:{diplomas: @diplomas_approved} %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </ol>
+</div>

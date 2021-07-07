@@ -1,0 +1,11 @@
+request:
+  header:
+    minimum: 10
+  content:
+    minimum: 20
+  per: 5
+show_limit:
+  requests: 5
+diploma:
+  certification:
+    minimum: 10
